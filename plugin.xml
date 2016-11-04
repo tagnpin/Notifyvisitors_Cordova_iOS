@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com-tagnpin-plugins-notifyvisitors" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>notifyvisitors_cordova</name>
+    <preference name="URL_SCHEME" />
+    <preference name="BRAND_ID" />
+    <preference name="SECRET_KEY" />
+    <js-module name="notifyvisitors_cordova" src="www/notifyvisitors_cordova.js">
+        <clobbers target="notifyvisitors_cordova" />
+    </js-module>
+<hook type="after_plugin_add" src="hooks/after_plugin_add.js" />
+    <platform name="ios">
+  <config-file target="config.xml" parent="/*">
+    <feature name="notifyvisitors_cordova">
+      <param name="ios-package" value="notifyvisitors_cordova" />
+    </feature>
+  </config-file>
+   <source-file src="src/ios/empty.png" />
+  <header-file src="src/ios/notifyvisitors_cordova.h" />
+  <source-file src="src/ios/notifyvisitors_cordova.m" />
+  <header-file src="src/ios/AppDelegate+notification.h" />
+  <source-file src="src/ios/AppDelegate+notification.m" />
+  <source-file src="src/ios/libnotifyvisitors_1_7_2.a" framework="true" />
+  <header-file src="src/ios/notifyvisitors.h" />
+  <framework src="Foundation.framework" />
+  <framework src="AdSupport.framework" />
+  <framework src="UIKit.framework" />
+  <framework src="CoreLocation.framework" />
+  <icon src="res/empty.png" />
+  <config-file target="*-Info.plist" parent="UIBackgroundModes">
+    <array>
+    <string>bluetooth-central</string>
+    <string>fetch</string>
+    <string>location</string>
+    <string>remote-notification</string>
+    </array>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+          <string>This application requires location services to work</string>
+              </config-file>
+              <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+                <dict>
+                  <key>NSAllowsArbitraryLoads</key>
+                  <true/>
+                  <key>NSExceptionDomains</key>
+                  <dict>
+                    <key>New item</key>
+                    <string>yourdomain_here</string>
+                  </dict>
+                </dict>
+              </config-file>
+
+        <config-file target="*-Info.plist" parent="nv_BrandID">
+                  <string>$BRAND_ID</string>
+              </config-file>
+  <config-file target="*-Info.plist" parent="nv_SecretKey">
+            <string>$SECRET_KEY</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+    <array>
+      <dict>
+        <key>CFBundleURLName</key>
+			<string>$PACKAGE_NAME</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>$URL_SCHEME</string>
+        </array>
+      </dict>
+    </array>
+  </config-file>
+</platform>
+</plugin>
